@@ -35,24 +35,3 @@ class ContactForm(forms.Form):
     from_email = forms.EmailField(required=True)
     subject = forms.CharField(required=True)
     message = forms.CharField(widget=forms.Textarea, required=True)
-
-class DiscountForm(forms.Form):
-    lst=[]
-    for i in Product.objects.all():
-        lst.append([str(i.id), i.name])
-    product_list=forms.MultipleChoiceField(widget=forms.CheckboxSelectMultiple,choices=lst) 
-    discount=forms.CharField()
-    class Meta(object):
-        widgets = {
-        'product_list': forms.CheckboxSelectMultiple(
-            attrs={
-                'class': 'form-check-input'
-                }
-            ),
-        }
-
-class RemoveDiscountForm(forms.Form):
-    lst=[]
-    for i in Discount_History.objects.all():
-        lst.append([str(i.id), str(i.product.name+" with "+str(i.discount_rate)+" discount")])
-    discount_list=forms.MultipleChoiceField(widget=forms.CheckboxSelectMultiple,choices=lst) 

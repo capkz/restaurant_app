@@ -44,9 +44,6 @@ from main.views import addProductReview
 
 from main.views import contactus
 
-from main.views import makeProductDiscount
-from main.views import removeProductDiscount
-
 from main.views import category_based_display_items
 
 
@@ -77,9 +74,6 @@ urlpatterns = [
 
 
     path('contactus',contactus,name='contactus'),
-    
-    path('makeProductDiscount',makeProductDiscount,name='makeProductDiscount'),
-    path('removeProductDiscount',removeProductDiscount,name='removeProductDiscount'),
 
     path('category_based_display_items',category_based_display_items,name='category_based_display_items'),
     

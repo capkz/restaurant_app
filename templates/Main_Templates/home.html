@@ -94,19 +94,6 @@
     </div>
   </div>
   <div class="col-sm-2">
-    
-
-<div class="mt-2 py-1 px-1 rounded" style="background-color: white;">
-  <p class="mb-2 py-2 px-2 text-center fs-5 rounded" style="background-color: thistle;">Discounts For Today</p>
-  {% for i in all_discounts %}
-      <p> <b>Restaurant:</b> {{i.restaurant}} </p>
-      <p> Discounted product: {{i.product}} </p>
-      <p> Discount Rate: {{i.discount_rate }}% </p>
-      {% if not forloop.last %}
-      <div class="my-1 mx-3" style="border-bottom:1px solid lightgray;"></div>
-      {% endif %}
-  {% endfor %}
-</div>
   </div>
 </div>
 

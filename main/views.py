@@ -8,7 +8,7 @@ from .forms import CreateUserForm
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group
-from .forms import UpdateUserForm,UpdateProductForm,CreateProductForm, AddReviewForm,ContactForm,DiscountForm,RemoveDiscountForm
+from .forms import UpdateUserForm,UpdateProductForm,CreateProductForm, AddReviewForm,ContactForm
 #if login required for a method then simply copy this code and put it above the method declaration
 #@login_required(login_url='login')
 from django.core.mail import send_mail, BadHeaderError
@@ -79,8 +79,7 @@ def home(request):
 
     all_prod_avg=score_of_reviewed_products_list(request)
 
-    all_discounts=Discount_History.objects.all()
-    context={"product_id":ids,'all_prod_avg':all_prod_avg,'all_discounts':all_discounts,'nbar':"home"}
+    context={"product_id":ids,'nbar':"home"}
     context['cartItems']=getCart(request.user)
     return render(request,'Main_Templates/home.html',context)
 
@@ -751,93 +750,6 @@ def score_of_reviewed_products_list(request):
     print(all_prod_avgs)
 
     return all_prod_avgs
-
-def makeProductDiscount(request):
-    context={}
-    if request.method=="POST":
-        #print("I AM IN POST STATEMENT")
-        form=DiscountForm(data=request.POST)
-        if form.is_valid():
-
-            #get selected items product ids
-            selected_items=[]
-            for i in form.cleaned_data['product_list']:
-                selected_items.append(i)
-
-            print("SELECTED ITEMS : ")
-            print(selected_items)
-            discount_rate=request.POST.get('discount')
-            print("DISCOUNT RATE: ")
-            print(discount_rate)
-        
-            prod_lst=[]
-            for i in selected_items:
-                prod_lst.append(Product.objects.get(id=int(i)))
-
-            print("PRODUCT OBJECTS")
-            print(prod_lst)
-
-        #for each product selected calculate discount and save the previus price for deletion of discount
-
-            for i in range(len(prod_lst)):
-                previous_price=prod_lst[i].price
-                new_price=previous_price-(previous_price*(int(discount_rate)/100))
-
-                prod_lst[i].price=new_price
-                prod_lst[i].save()
-
-                obj=Discount_History.objects.create(restaurant=request.user,product=prod_lst[i],discount_rate=discount_rate,previous_price=previous_price)
-                obj.save()
-
-        return redirect('restaurantOwnerProfile')
-
-    else : 
-        form=DiscountForm()
-        #product=Product.objects.filter(restaurant=Restaurant.objects.filter(owner=request.user)[0]) 
-        context={'form':form}
-        #print("IAM IN GET STATEMENT")
-    return render(request,"Main_Templates/discount.html",context)
-
-def removeProductDiscount(request):
-
-    if request.method=="POST" :
-        form=RemoveDiscountForm(data=request.POST)
-        if form.is_valid():
-            selected_items=[]
-            for i in form.cleaned_data['discount_list']:
-                selected_items.append(i)
-
-        print("SELECTED ITEMS : ")
-        print(selected_items)
-
-        discount_lst=[]
-        for i in selected_items:
-            discount_lst.append(Discount_History.objects.get(id=int(i)))
-
-        #selected discount objects:
-        print("DISCOUNT OBJECTS")
-        print(discount_lst)
-
-        for i in range(len(discount_lst)):
-            restore_price=discount_lst[i].previous_price
-            product_id=discount_lst[i].product.id
-
-            prod_obj=Product.objects.get(id=product_id)
-            prod_obj.price=restore_price
-            prod_obj.save()
-
-            discount_lst[i].delete()
-
-
-        return redirect('restaurantOwnerProfile')
-
-    else : 
-        form=RemoveDiscountForm()
-        #product=Product.objects.filter(restaurant=Restaurant.objects.filter(owner=request.user)[0]) 
-        context={'form':form}
-        #print("IAM IN GET STATEMENT")
-        return render(request,"Main_Templates/remove_discount.html",context)
-
 
 def category_division(request):
 
