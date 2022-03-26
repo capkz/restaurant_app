@@ -1,0 +1,36 @@
+{% extends 'Main_Templates/main.html' %}
+{% load myfilters %}
+{% load static %}
+
+{% block content %}
+<style>
+      fieldset {
+        padding: 10px;
+        border: gainsboro 1px solid;
+        border-radius: 10px;
+        margin-bottom: 10px;
+    }
+    legend{ float: none; padding: inherit; }
+
+</style>
+<fieldset class="border p-2">
+  <legend class="w-auto">Update Personal Information</legend>
+  <form method="POST" action=".">
+      {% csrf_token %}
+      <div class="container px-5">
+        {{ form.username.label }}
+        {{ form.username |addcss:"form-control" }}
+        {{ form.email.label }}
+        {{ form.email |addcss:"form-control" }}
+        <label for="phone_no">Phone Number :</label><br>
+      	<input class="form-control"type="text" id="phone_no" name="phone_no"><br>
+        <div class="row">
+          <div class="col text-end">
+            <input class="btn btn-success mb-3 text-center" type="submit" value="Submit" />
+          </div>
+        </div>
+      </div>
+  </form>
+</fieldset>
+
+{% endblock content %}

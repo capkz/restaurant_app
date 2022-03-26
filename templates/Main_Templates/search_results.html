@@ -1,0 +1,72 @@
+{% extends 'Main_Templates/main.html' %}
+{% load static %}
+
+{% block content %}
+<p class="mb-2 py-2 px-2 text-center fs-3 rounded" style="background-color: thistle;">Search Result</p>
+
+<div class="search-bar mt-sm-2 mr-2">
+	<form method="POST">
+		{% csrf_token %}
+		<input type="text" class="form-control" name="q" id="id_q" placeholder="Search...">
+
+	</form>
+
+</div>
+
+<ul class="nav flex-column shadow-sm" style='float:left;'>
+	<div class="mt-2 py-1 px-1 rounded" style="background-color: white;">
+		<p class="mb-2 py-2 px-2 text-center fs-5 rounded" style="background-color: thistle;">All Categories</p>
+
+		{% for i in all_categories %}
+		<li class="nav-item">
+			<a class="nav-link active" href="{% url 'category_based_display_items' %}?category_name={{i}}">{{i}} </a>
+		</li>
+		{% if not forloop.last %}
+		<div class="my-0 mx-3" style="border-bottom:1px solid lightgray;"></div>
+		{% endif %}
+		{% endfor %}
+	</div>
+</ul>
+
+<!-- {% for i in searched_products %}
+
+<a href="{% url 'detailedProductView' %}?item_id={{i.id}}"> <img src={{i.image.url}}
+		style="width: 200px ; height: 200px;"></a>
+<p> {{ i.name }} </p>
+
+{% endfor %} -->
+
+
+<div class=main>
+	<div class=container>
+		<div class="row">
+			{% for product in searched_products %}
+			<!-- 3 coloumns within a row -->
+			<div class="col-lg-4">
+				<div class="card shadow-sm">
+					<div class="card-body">
+						<img src="{{ product.image.url }}" style="width: 200px ; height: 200px;">
+						<div class="box-element product">
+							<!-- Custom Css not Bootstrap -->
+							<h6><strong> {{ product.name}} </strong></h6>
+							<h5 style="display: inline-block; float: right;"><strong> {{ product.price| floatformat:2 }}
+									TL </strong> </h5>
+
+							<!-- setting custom attribute: data-attributename -->
+							<a data-product={{product.id}} data-action="add"
+								class="btn btn-outline-secondary add-btn update-cart" href="#add"> Add To Cart </a>
+
+							<a class="btn btn-outline-success"
+								href="{% url 'detailedProductView' %}?item_id={{product.id}}"> View </a>
+						</div>
+					</div>
+				</div>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+</div>
+
+
+
+{% endblock content %}

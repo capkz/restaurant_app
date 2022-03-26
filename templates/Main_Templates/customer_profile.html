@@ -1,0 +1,66 @@
+{% extends 'Main_Templates/main.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="container-fluid px-0 pb-0 shadow-sm rounded" style="background-color: thistle;">
+	<p class="mb-3 py-1 px-2 text-center fs-3">My Profile</p>
+  </div>
+
+<h2> Personal Information : </h2>
+<div class="row">
+	<div class="col-md">
+		<div class="card card-body">
+			<table class="table table-sm">
+				<tr>
+					<th> Name : </th>
+					<th> Email : </th>
+					<th> Phone Number : </th>
+					<th> Date and Time Joined : </th>
+
+				</tr>
+				{% for i in personal_info %}
+				<td> {{i}} </td>
+				{% endfor %}
+			</table>
+		</div>
+	</div>
+</div>
+
+
+<div class="row">
+		<div class="col text-end">
+			<a class="btn btn-success" href="{% url 'customerInfoUpdate' %}"> Update My
+				Information </a>
+		</div>
+</div>
+
+<div>
+	<h2> Order History : </h2>
+	<div class="row">
+		<div class="col-md">
+			<div class="card card-body">
+				<table class="table table-sm">
+					<tr>
+						<th> Item Name </th>
+						<th> Order It Belongs </th>
+						<th> Quantity</th>
+						<th> Is Order Delivered? </th>
+						<th> Cancel Order </th>
+					</tr>
+					{% for i in order_history %}
+						<tr>
+							<td> {{i.0}} </td>
+							<td> {{i.1}} </td>
+							<td> {{i.2}} </td>
+							<td> {{i.3}} </td>
+							<td><a class="btn btn-danger" href="{% url 'customerOrderCancel' %}?item_id={{i}}" value="{{i}}">Cancel My Order</a></td>
+						</tr>
+					{% endfor %}
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock content %}

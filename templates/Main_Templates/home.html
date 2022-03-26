@@ -1,0 +1,122 @@
+{% extends 'Main_Templates/main.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="container-fluid px-0 pb-0 shadow-sm rounded" style="background-color: thistle;">
+  <p class="mb-1 py-2 px-2 text-center fs-3">Check Out Featured Foods!</p>
+</div>
+<div id="carouselExampleIndicators" class="carousel slide py-2" data-bs-ride="carousel">
+  <ol class="carousel-indicators">
+    <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"></li>
+    <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"></li>
+    <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"></li>
+    <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3"></li>
+    <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="4"></li>
+    <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="5"></li>
+    <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="6"></li>
+    <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="7"></li>
+    <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="8"></li>
+    <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="9"></li>
+  </ol>
+  <div class="carousel-inner" style="height: 400px;">
+    <div class="carousel-item active">
+      <a href="{% url 'detailedProductView' %}?item_id={{product_id.0}}"> <img class="d-block w-100"src="{% static 'images/popular_now1.jpg' %}"></a>
+    </div>
+    <div class="carousel-item">
+      <a href="{% url 'detailedProductView' %}?item_id={{product_id.1}}" > <img class="d-block w-100"src="{% static 'images/popular_now2.jpg' %}"></a>
+    </div>
+    <div class="carousel-item">
+      <a href="{% url 'detailedProductView' %}?item_id={{product_id.2}}" > <img class="d-block w-100"src="{% static 'images/popular_now3.jpg' %}"></a>
+    </div>
+    <div class="carousel-item">
+      <a href="{% url 'detailedProductView' %}?item_id={{product_id.3}}" > <img class="d-block w-100"src="{% static 'images/popular_now4_PLtolp3.png' %}"></a>
+    </div>
+    <div class="carousel-item">
+      <a href="{% url 'detailedProductView' %}?item_id={{product_id.4}}" > <img class="d-block w-100"src="{% static 'images/popular_now5.jpg' %}"></a>
+    </div>
+    <div class="carousel-item">
+      <a href="{% url 'detailedProductView' %}?item_id={{product_id.5}}" > <img class="d-block w-100"src="{% static 'images/popular_now6.jpg' %}"></a>
+    </div>
+    <div class="carousel-item">
+      <a href="{% url 'detailedProductView' %}?item_id={{product_id.6}}" > <img class="d-block w-100"src="{% static 'images/popular_now7.jpg' %}"></a>
+    </div>
+    <div class="carousel-item">
+      <a href="{% url 'detailedProductView' %}?item_id={{product_id.7}}" > <img class="d-block w-100"src="{% static 'images/popular_now8.jpg' %}"></a>
+    </div>
+    <div class="carousel-item">
+      <a href="{% url 'detailedProductView' %}?item_id={{product_id.8}}" > <img class="d-block w-100"src="{% static 'images/popular_now9.jpg' %}"></a>
+    </div>
+    <div class="carousel-item">
+      <a href="{% url 'detailedProductView' %}?item_id={{product_id.9}}" > <img class="d-block w-100"src="{% static 'images/popular_now10.jpg' %}"></a>
+    </div>
+  </div>
+  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </a>
+</div>
+
+<div class="container-fluid px-0 mt-5 pb-0 shadow-sm rounded" style="background-color: thistle;">
+  <p class="mb-1 py-2 px-2 text-center fs-3">Discover New Food!</p>
+</div>
+<div class="row">
+  <div class="col-sm-10">
+    <div class="row">
+      {% for i in all_prod_avg %}
+          <div class="col-md-6 py-2 px-2">
+            <div class="card">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-4">
+                	<a href="{% url 'detailedProductView' %}?item_id={{i.0.id}}"> <img class="img-fluid rounded"  src={{i.0.image.url}} style="width: 200px ; height: 200px;"></a>
+                	<div class="row">
+                    <div class="col-lg-8">
+                      <h5 class="card-title">{{i.0}}</h5>
+                    </div>
+                    	<div class="col-lg-4 text-nowrap">
+                        <p>{{i.1 |floatformat}}/10</p>
+                      </div>
+                  </div>
+                </div>
+                <div class="col-sm-8">
+                  <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Repellendus, officia ullam reiciendis eaque labore magni? Voluptatem, ex incidunt eius, quod dolor necessitatibus cumque saepe enim molestiae harum aperiam maxime autem.</p>
+                </div>
+              </div>
+            </div>
+            </div>
+          </div>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="col-sm-2">
+    
+
+<div class="mt-2 py-1 px-1 rounded" style="background-color: white;">
+  <p class="mb-2 py-2 px-2 text-center fs-5 rounded" style="background-color: thistle;">Discounts For Today</p>
+  {% for i in all_discounts %}
+      <p> <b>Restaurant:</b> {{i.restaurant}} </p>
+      <p> Discounted product: {{i.product}} </p>
+      <p> Discount Rate: {{i.discount_rate }}% </p>
+      {% if not forloop.last %}
+      <div class="my-1 mx-3" style="border-bottom:1px solid lightgray;"></div>
+      {% endif %}
+  {% endfor %}
+</div>
+  </div>
+</div>
+
+
+<!-- 
+<p> NEWS CORNER : </p>
+
+<p> TESTIMONIALS ABOUT OUR WEBPAGE: </p>
+ -->
+
+
+
+{% endblock content %}

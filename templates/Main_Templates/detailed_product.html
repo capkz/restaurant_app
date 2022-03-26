@@ -1,0 +1,66 @@
+{% extends 'Main_Templates/main.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="card shadow-sm">
+	<div class="card-body">
+		<div class="row">
+			<div class="col-sm-4">
+				<img class="rounded shadow-sm" src="{{product.image.url}}" alt={{product.image.url}}
+					style=" width:300px; height:300px;" caption="asd">
+			</div>
+
+			<div class="col-sm-8">
+				<div>
+					<h4><b>{{product.name}}</b> </h4>
+					<p> <a
+							href="{% url 'category_based_display_items' %}?category_name={{product.category}}">{{product.category}}</a>
+					</p>
+					<p><b> Restaurant :</b> {{product.restaurant }} </p>
+					<p><b> Product Ingredients : </b> {{product.ingredients }} </p>
+					<p><b> Is This Product Deliverable : </b> {{product.deliverable}} </p>
+					<div class="d-flex flex-row">
+						<p><b> Price : </b> {{product.price }} TL </p>
+						<a data-product={{product.id}} data-action="add"
+							class="btn btn-outline-success add-btn update-cart mx-4" href="#add"> Add To Cart </a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<div>
+	<p class="my-4 py-2 px-2 text-center fs-5 rounded" style="background-color: thistle;">Reviews and Ratings</p>
+	<a class="btn btn-success my-2" href="{% url 'addProductReview' %}?product_id={{product}}" value="{{i}}">+</a>
+	<div class="row">
+		{% for i in all_reviews %}
+		<div class="card col-sm-6">
+			<div class="card-body">
+
+				{% if i.image %}
+
+				<div class="row">
+					<div class="col-sm-4">
+						<img class="img-fluid rounded" src={{i.image.url}} style="width: 200px ; height: 200px;">
+					</div>
+
+					<div class="col-sm-8">
+						<p class="text-nowrap"><b>Speed:</b> {{i.speed_rating}} | <b>Service Rating:</b>{{i.service_rating}} | <b>Food Quality:</b>{{i.food_quality_rating}}</p>
+						<p> <b> {{i.user}} </b> : {{i.comment }} </p>
+					</div>
+				</div>
+
+				{% else %}
+					<p class="text-nowrap"><b>Speed:</b> {{i.speed_rating}} | <b>Service Rating:</b> {{i.service_rating}} | <b>Food Quality:</b> {{i.food_quality_rating}}</p>
+					<p> <b> {{i.user}} </b> : {{i.comment }} </p>
+				{% endif %}
+			</div>
+		</div>
+		{% endfor %}
+	</div>
+</div>
+
+{% endblock content %}

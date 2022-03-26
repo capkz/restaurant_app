@@ -1,0 +1,64 @@
+{% extends 'Main_Templates/main.html' %}
+{% load static %}
+
+{% block content %}
+
+
+<div class="container-fluid px-0 pb-0 shadow-sm rounded" style="background-color: thistle;">
+	<p class="mb-3 py-1 px-2 text-center fs-3">My Restaurant Profile</p>
+  </div>
+
+	<div>
+		<div class="d-flex flex-row my-2">
+			<h2 class="mx-2" >Our Products</h2>
+			<a class="btn btn-success mx-2" href="{% url 'makeProductDiscount' %}" value="{{i}}">Make A Discount (based on %)</a>
+			<a class="btn btn-success mx-2" href="{% url 'removeProductDiscount' %}" value="{{i}}">Remove A Discount </a>
+		</div>
+
+		<div class="row">
+			<div class="col-md">
+				<div class="card card-body">
+					<table class="table table-sm">
+						<tr>
+							<th>Item Name</th>
+							<th>Remove</th>
+							<th>Update</th>
+							<th><a class="btn btn-dark" href="{% url 'addRestaurantProduct' %}?item_id={{i}}" value="{{i}}">+</a></th>
+						</tr>
+						{% for i in products %}
+							<tr>
+								<td> {{i}} </td>
+								<td> <a class="btn btn-danger" href="{% url 'deleteRestaurantProduct' %}?item_id={{i}}" value="{{i}}">Remove This Product From Menu</a> </td>
+								<td> 	<a class="btn btn-success" href="{% url 'updateRestaurantProduct' %}?item_id={{i}}" value="{{i}}">Update This Product Information</a></td>
+							</tr>
+						{% endfor %}
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<div class="py-2">
+	<h2>Orders My Restaurant Received</h2>
+	<div class="row">
+		<div class="col-md">
+			<div class="card card-body">
+				<table class="table table-sm">
+					<tr>
+						<th>Item Name</th>
+						<th>Order Delivered</th>
+						<th>Update</th>
+					</tr>
+					{% for i in orderitems %}
+						<tr>
+							<td> {{i.0}} </td>
+							<td> {{i.1}} </td>
+							<td> <a class="btn btn-warning" href="{% url 'updateRestaurantOrder' %}?item_id={{i}}" value="{{i}}">Update Order Status</a> </td>
+						</tr>
+					{% endfor %}
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock content %}

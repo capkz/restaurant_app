@@ -1,0 +1,46 @@
+{% extends 'Main_Templates/main.html' %}
+{% load myfilters %}
+{% load static %}
+
+{% block content %}
+
+<style>
+    fieldset {
+      padding: 10px;
+      border: gainsboro 1px solid;
+      border-radius: 10px;
+      margin-bottom: 10px;
+  }
+  legend{ float: none; padding: inherit; }
+
+</style>
+
+<fieldset class="border p-2">
+    <legend class="w-auto">Update Product</legend>
+    <form method="POST" action="">
+        {% csrf_token %}
+        {{ form.name.label }}
+        {{ form.name | addcss:"form-control" }}
+        
+        {{ form.category.label }}
+        {{ form.category | addcss:"form-control" }}
+    
+        {{ form.ingredients.label }}
+        {{ form.ingredients | addcss:"form-control" }}
+    
+        {{ form.deliverable.label }}
+        {{ form.deliverable | addcss:"form-control" }}
+    
+        {{ form.price.label }}
+        {{ form.price | addcss:"form-control" }}
+    
+        {{ form.image.label }}
+        {{ form.image | addcss:"form-control" }}
+        <div class="row">
+            <div class="col text-center">
+              <input class="btn btn-success my-3 text-end" type="submit" value="Submit" />
+            </div>
+          </div>
+        </form>
+</fieldset>
+{% endblock content %}

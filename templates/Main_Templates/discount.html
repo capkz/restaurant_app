@@ -1,0 +1,31 @@
+{% extends 'Main_Templates/main.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<style>
+    fieldset {
+      padding: 10px;
+      border: gainsboro 1px solid;
+      border-radius: 10px;
+      margin-bottom: 10px;
+  }
+  legend{ float: none; padding: inherit; }
+
+</style>
+
+<fieldset class="border p-2">
+    <legend class="w-auto">Discount</legend>
+    <form method="POST" action="">
+        {% csrf_token %}
+        {{ form |crispy}}
+        
+        <div class="row">
+            <div class="col text-center">
+              <input class="btn btn-success my-3 text-end" type="submit" value="Submit" />
+            </div>
+          </div>
+    </form>
+</fieldset>
+{% endblock content %}

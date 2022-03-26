@@ -1,0 +1,57 @@
+{% extends 'Main_Templates/main.html' %}
+{% load myfilters %}
+{% load static %}
+
+{% block content %}
+
+<style>
+    fieldset {
+      padding: 10px;
+      border: gainsboro 1px solid;
+      border-radius: 10px;
+      margin-bottom: 10px;
+  }
+  legend{ float: none; padding: inherit; }
+
+</style>
+
+<fieldset class="border p-2">
+    <legend class="w-auto">Add a Review</legend>
+    <form method="POST" action="">
+        {% csrf_token %}
+
+        {{ form.comment.label}}
+        {{ form.comment | addcss:"form-control"}}
+        
+        <div class="row py-4">
+            <div class="col-sm-3">
+                {{ form.speed_rating.label}}
+                {{ form.speed_rating | addcss:"form-control"}}
+            </div>
+            
+            <div class="col-sm-3">
+                {{ form.service_rating.label}}
+                {{ form.service_rating | addcss:"form-control"}}
+            </div>
+            
+            <div class="col-sm-3">
+                {{ form.food_quality_rating.label}}
+                {{ form.food_quality_rating | addcss:"form-control"}}
+            </div>
+            <div class="col-sm-3">
+                {{ form.image.label}}
+                {{ form.image | addcss:"form-control"}}
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col text-center">
+              <input class="btn btn-success my-3 text-end" type="submit" value="Submit" />
+            </div>
+          </div>
+    </form>
+</fieldset>
+
+{% endblock content %}
+
+fields=['comment','speed_rating','service_rating','food_quality_rating']
